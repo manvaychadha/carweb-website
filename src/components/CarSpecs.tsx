@@ -360,10 +360,6 @@ export default function CarSpecs() {
           border: '1px solid rgba(12,12,14,0.06)',
           boxShadow: '0 4px 40px rgba(0,0,0,0.06)',
           borderRadius: 4,
-          background: 'white',
-          border: '1px solid rgba(12,12,14,0.06)',
-          boxShadow: '0 4px 40px rgba(0,0,0,0.06)',
-          borderRadius: 4,
           padding: 'clamp(32px,5vw,56px)',
           minHeight: 320,
         }}
