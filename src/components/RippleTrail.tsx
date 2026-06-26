@@ -29,7 +29,7 @@ export default function RippleTrail() {
         pointer-events: none;
         opacity: 0;
         backdrop-filter: url(#liquid-trail) blur(1px);
-        box-shadow: inset 0 0 30px rgba(255,255,255,0.1), 0 0 15px rgba(232,213,176,0.15);
+        box-shadow: inset 0 0 30px rgba(255,255,255,0.08), 0 0 15px rgba(201,168,76,0.12);
         transform: translate(-50%, -50%);
       `
       container.appendChild(el)

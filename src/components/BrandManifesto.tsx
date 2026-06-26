@@ -75,8 +75,9 @@ export default function BrandManifesto() {
           </div>
           <h2
             style={{
+              fontFamily: 'var(--font-display)',
               fontSize: 'clamp(36px,4.5vw,72px)',
-              fontWeight: 400,
+              fontWeight: 300,
               lineHeight: 0.95,
               color: 'white',
               margin: '0 0 32px 0',
@@ -88,6 +89,9 @@ export default function BrandManifesto() {
             <br />
             ALWAYS.
           </h2>
+          <p className="pull-quote on-dark" style={{ marginBottom: 24, fontSize: 'clamp(20px,2.5vw,32px)' }}>
+            "THE OTHER SIDE OF THE TABLE."
+          </p>
           <p
             style={{
               fontSize: 11,

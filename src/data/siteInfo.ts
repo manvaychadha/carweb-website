@@ -1,0 +1,35 @@
+export const siteInfo = {
+  name: 'CARWEB.IN',
+  tagline: 'THE FINEST CARS IN INDIA.',
+  description: "India's most passionate independent automotive destination — daily car news, honest reviews, and a private concierge service for luxury car buyers.",
+  founded: 2020,
+  founder: {
+    name: 'Manvay Chadha',
+    ageAtFounding: 11,
+    role: 'Founder & Editor-in-Chief',
+    shortBio: 'Founded at 11. Still obsessed.',
+    fullBio: "In 2020, at eleven years old, Manvay Chadha launched carweb.in from Delhi with nothing but a laptop and an obsession with cars that most adults spend their entire lives trying to articulate. No investor backing. No boardroom. Just a kid who knew more about horsepower, torque, and tyre compounds than most people twice his age. What started as a personal blog became Delhi's most distinctive independent automotive voice — a place built on genuine passion, not press releases. Today, carweb.in covers the finest cars in India and runs a private concierge service helping enthusiasts find exactly the right car.",
+    differentiator: "Most automotive media in India is corporate, advertiser-driven, and written by committee. carweb.in is the opposite — one voice, one obsession, zero compromises. When you read a review here, it is written by someone who genuinely cares whether it is the right car for you.",
+  },
+  contact: {
+    phone: '+91 9582129129',
+    phoneDisplay: '+91 95821 29129',
+    whatsapp: '+91 9582129129',
+    whatsappLink: 'https://wa.me/919582129129?text=Hi%20Manvay%2C%20I%20found%20carweb.in%20and%20wanted%20to%20get%20in%20touch.',
+    email: 'carweb786@gmail.com',
+    city: 'New Delhi',
+    country: 'India',
+    location: 'New Delhi, India',
+  },
+  social: {
+    instagram: { handle: '@carweb.in', url: 'https://instagram.com/carweb.in' },
+  },
+  nav: [
+    { label: 'Home',      path: '/' },
+    { label: 'Blog',      path: '/blog' },
+    { label: 'Concierge', path: '/concierge' },
+    { label: 'About',     path: '/about' },
+    { label: 'Contact',   path: '/contact' },
+  ],
+  seo: { siteUrl: 'https://carweb.in', ogImage: '/og/carweb-og.jpg' },
+}

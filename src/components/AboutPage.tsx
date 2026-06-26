@@ -144,29 +144,16 @@ export default function AboutPage({ isOpen, onClose }: AboutPageProps) {
                 ].map((stat) => (
                   <motion.div
                     key={stat.label}
+                    className="stat-block"
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.6 }}
                   >
-                    <div
-                      style={{
-                        fontSize: 'clamp(32px,4vw,56px)',
-                        color: '#0c0c0e',
-                        fontWeight: 400,
-                        lineHeight: 1,
-                        marginBottom: 6,
-                      }}
-                    >
+                    <div className="stat-block__number">
                       {stat.num}
                     </div>
-                    <div
-                      style={{
-                        fontSize: 9,
-                        letterSpacing: '0.3em',
-                        color: 'rgba(12,12,14,0.4)',
-                      }}
-                    >
+                    <div className="stat-block__label">
                       {stat.label}
                     </div>
                   </motion.div>

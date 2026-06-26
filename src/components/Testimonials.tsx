@@ -39,8 +39,9 @@ export default function Testimonials() {
         </div>
         <h2
           style={{
+            fontFamily: 'var(--font-display)',
             fontSize: 'clamp(40px,6vw,80px)',
-            fontWeight: 400,
+            fontWeight: 300,
             lineHeight: 0.95,
             color: '#0c0c0e',
             margin: 0,
@@ -82,9 +83,11 @@ export default function Testimonials() {
           >
             <p
               style={{
+                fontFamily: 'var(--font-display)',
                 fontStyle: 'italic',
-                fontSize: 12,
-                lineHeight: 1.9,
+                fontWeight: 300,
+                fontSize: 'clamp(16px,1.8vw,22px)',
+                lineHeight: 1.4,
                 color: 'rgba(12,12,14,0.7)',
                 marginBottom: 28,
                 margin: '0 0 28px 0',

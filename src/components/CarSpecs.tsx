@@ -247,8 +247,11 @@ export default function CarSpecs() {
       style={{
         backgroundColor: 'var(--bg-base)',
         padding: 'clamp(80px,10vw,140px) clamp(24px,6vw,96px)',
+        position: 'relative',
+        overflow: 'hidden',
       }}
     >
+      <span className="section-counter">01</span>
       {/* Header */}
       <motion.div
         initial={{ opacity: 0, y: 30 }}
@@ -274,11 +277,14 @@ export default function CarSpecs() {
         </div>
         <h2
           style={{
+            fontFamily: 'var(--font-display)',
             fontSize: 'clamp(36px,5.5vw,72px)',
-            fontWeight: 400,
+            fontWeight: 300,
             lineHeight: 0.95,
             color: '#0c0c0e',
             margin: 0,
+            position: 'relative',
+            zIndex: 1,
           }}
         >
           FIND YOUR

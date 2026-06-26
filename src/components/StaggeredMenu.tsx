@@ -1,13 +1,24 @@
 import { useEffect, useRef } from 'react'
+import { Link } from 'react-router-dom'
 import gsap from 'gsap'
+import { siteInfo } from '../data/siteInfo'
 
 interface StaggeredMenuProps {
   isOpen: boolean
   onToggle: () => void
-  onConsultationOpen: () => void
+  onNavigate: () => void
 }
 
-export default function StaggeredMenu({ isOpen, onToggle, onConsultationOpen }: StaggeredMenuProps) {
+const navItems = [
+  { num: '01', label: 'HOME',      path: '/' },
+  { num: '02', label: 'BLOG',      path: '/blog' },
+  { num: '03', label: 'CONCIERGE', path: '/concierge' },
+  { num: '04', label: 'ABOUT',     path: '/about' },
+  { num: '05', label: 'CONTACT',   path: '/contact' },
+  { num: '06', label: 'FIND YOUR CAR', path: '/', cta: true },
+]
+
+export default function StaggeredMenu({ isOpen, onToggle, onNavigate }: StaggeredMenuProps) {
   const panelRef = useRef<HTMLDivElement>(null)
   const prelayer1Ref = useRef<HTMLDivElement>(null)
   const prelayer2Ref = useRef<HTMLDivElement>(null)
@@ -16,15 +27,6 @@ export default function StaggeredMenu({ isOpen, onToggle, onConsultationOpen }: 
   const menuLabelRef = useRef<HTMLSpanElement>(null)
   const closeLabelRef = useRef<HTMLSpanElement>(null)
   const tlRef = useRef<gsap.core.Timeline | null>(null)
-
-  const navItems = [
-    { label: 'HOME', handler: () => { onToggle() } },
-    { label: 'SERVICES', handler: () => { onToggle() } },
-    { label: 'HOW IT WORKS', handler: () => { onToggle() } },
-    { label: 'PRICING', handler: () => { onToggle() } },
-    { label: 'ABOUT', handler: () => { onToggle() } },
-    { label: 'BOOK CONSULTATION', handler: () => { onConsultationOpen(); onToggle() } },
-  ]
 
   useEffect(() => {
     if (tlRef.current) {
@@ -35,7 +37,6 @@ export default function StaggeredMenu({ isOpen, onToggle, onConsultationOpen }: 
     tlRef.current = tl
 
     if (isOpen) {
-      // Cycle label: MENU → CLOSE
       if (menuLabelRef.current && closeLabelRef.current) {
         tl.to(menuLabelRef.current, { y: '-100%', duration: 0.4, ease: 'power3.inOut' }, 0)
         tl.fromTo(
@@ -46,32 +47,27 @@ export default function StaggeredMenu({ isOpen, onToggle, onConsultationOpen }: 
         )
       }
 
-      // Prelayer 1 slides in
       tl.fromTo(
         prelayer1Ref.current,
         { x: '100%' },
         { x: '0%', duration: 0.6, ease: 'power4.out' },
         0
       )
-      // Prelayer 2 slides in
       tl.fromTo(
         prelayer2Ref.current,
         { x: '100%' },
         { x: '0%', duration: 0.6, ease: 'power4.out' },
         0.08
       )
-      // Panel slides in
       tl.fromTo(
         panelRef.current,
         { x: '100%' },
         { x: '0%', duration: 0.8, ease: 'power4.out' },
         0.15
       )
-      // Prelayers slide out (wipe effect)
       tl.to(prelayer1Ref.current, { x: '-100%', duration: 0.5, ease: 'power3.in' }, 0.5)
       tl.to(prelayer2Ref.current, { x: '-100%', duration: 0.5, ease: 'power3.in' }, 0.5)
 
-      // Nav items stagger in
       const items = navItemsRef.current.filter(Boolean)
       tl.fromTo(
         items,
@@ -88,7 +84,6 @@ export default function StaggeredMenu({ isOpen, onToggle, onConsultationOpen }: 
         )
       }
     } else {
-      // Close sequence
       const items = navItemsRef.current.filter(Boolean)
       tl.to(items, { x: 40, opacity: 0, duration: 0.3, ease: 'power3.in', stagger: 0.04 }, 0)
       if (socialsRef.current) {
@@ -96,7 +91,6 @@ export default function StaggeredMenu({ isOpen, onToggle, onConsultationOpen }: 
       }
       tl.to(panelRef.current, { x: '100%', duration: 0.6, ease: 'power4.in' }, 0.2)
 
-      // Cycle label back: CLOSE → MENU
       if (menuLabelRef.current && closeLabelRef.current) {
         tl.to(closeLabelRef.current, { y: '100%', duration: 0.4, ease: 'power3.inOut' }, 0)
         tl.fromTo(
@@ -111,7 +105,6 @@ export default function StaggeredMenu({ isOpen, onToggle, onConsultationOpen }: 
 
   return (
     <div className="staggered-menu">
-      {/* Toggle button */}
       <button
         className={`menu-toggle${isOpen ? ' is-open' : ''}`}
         onClick={onToggle}
@@ -124,46 +117,92 @@ export default function StaggeredMenu({ isOpen, onToggle, onConsultationOpen }: 
         <span className="menu-toggle-icon">+</span>
       </button>
 
-      {/* Prelayers */}
       <div ref={prelayer1Ref} className="menu-prelayer menu-prelayer-1" />
       <div ref={prelayer2Ref} className="menu-prelayer menu-prelayer-2" />
 
-      {/* Menu panel */}
       <div ref={panelRef} className="menu-panel">
         <nav>
           <ul className="menu-nav">
             {navItems.map((item, i) => (
               <li key={item.label}>
-                <a
-                  ref={(el) => { navItemsRef.current[i] = el }}
-                  onClick={(e) => { e.preventDefault(); item.handler() }}
-                  href="#"
+                <Link
+                  ref={(el) => { navItemsRef.current[i] = el as HTMLAnchorElement }}
+                  to={item.path}
+                  onClick={onNavigate}
+                  className={item.cta ? 'menu-nav-cta' : undefined}
                 >
                   <span
                     style={{
                       fontSize: 'clamp(0.5rem, 1vw, 0.65rem)',
                       letterSpacing: '0.25em',
-                      color: 'rgba(12,12,14,0.3)',
+                      color: item.cta ? 'rgba(201,168,76,0.5)' : 'rgba(255,255,255,0.2)',
                       minWidth: '2ch',
                     }}
                   >
-                    0{i + 1}
+                    {item.num}
                   </span>
                   {item.label}
-                </a>
+                </Link>
               </li>
             ))}
           </ul>
         </nav>
 
         <div ref={socialsRef} className="menu-socials">
-          <span className="menu-socials-title">FOLLOW</span>
+          <span className="menu-socials-title">CONTACT</span>
+          <div style={{ marginBottom: 16 }}>
+            <a
+              href={siteInfo.contact.whatsappLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                display: 'block',
+                fontSize: '0.7rem',
+                letterSpacing: '0.2em',
+                color: 'rgba(255,255,255,0.5)',
+                textDecoration: 'none',
+                marginBottom: 6,
+                transition: 'color 0.3s',
+              }}
+              onMouseEnter={(e) => { (e.currentTarget as HTMLAnchorElement).style.color = '#c9a84c' }}
+              onMouseLeave={(e) => { (e.currentTarget as HTMLAnchorElement).style.color = 'rgba(255,255,255,0.5)' }}
+            >
+              {siteInfo.contact.phone}
+            </a>
+            <a
+              href={`mailto:${siteInfo.contact.email}`}
+              style={{
+                display: 'block',
+                fontSize: '0.7rem',
+                letterSpacing: '0.2em',
+                color: 'rgba(255,255,255,0.5)',
+                textDecoration: 'none',
+                transition: 'color 0.3s',
+              }}
+              onMouseEnter={(e) => { (e.currentTarget as HTMLAnchorElement).style.color = '#c9a84c' }}
+              onMouseLeave={(e) => { (e.currentTarget as HTMLAnchorElement).style.color = 'rgba(255,255,255,0.5)' }}
+            >
+              {siteInfo.contact.email}
+            </a>
+          </div>
           <div className="menu-socials-links">
-            {['INSTAGRAM', 'YOUTUBE', 'LINKEDIN'].map((s) => (
-              <a key={s} href="#">
-                {s}
-              </a>
-            ))}
+            <a
+              href={siteInfo.social.instagram.url}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              INSTAGRAM
+            </a>
+          </div>
+          <div
+            style={{
+              marginTop: 24,
+              fontSize: '0.55rem',
+              letterSpacing: '0.3em',
+              color: 'rgba(255,255,255,0.2)',
+            }}
+          >
+            EST. {siteInfo.founded}
           </div>
         </div>
       </div>

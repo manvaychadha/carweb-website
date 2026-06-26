@@ -1,84 +1,59 @@
 import { useState } from 'react'
-import Header from './components/Header'
-import Hero from './components/Hero'
-import RippleTrail from './components/RippleTrail'
-import StaggeredMenu from './components/StaggeredMenu'
-import BrandManifesto from './components/BrandManifesto'
-import Experiences from './components/Experiences'
-import CarSpecs from './components/CarSpecs'
-import Testimonials from './components/Testimonials'
-import Membership from './components/Membership'
-import Academy from './components/Academy'
-import ConciergeForm from './components/ConciergeForm'
-import Faq from './components/Faq'
-import PressStrip from './components/PressStrip'
-import Footer from './components/Footer'
+import { Routes, Route, useLocation } from 'react-router-dom'
+import { AnimatePresence } from 'motion/react'
+import Navbar from './components/Navbar'
+import SideMenu from './components/SideMenu'
+import DreamCarQuiz from './components/DreamCarQuiz'
 import CookieConsent from './components/CookieConsent'
+import { articles } from './data/articles'
+import { HomePage, BlogPage, ArticlePage, ConciergePage, AboutPage, ContactPage } from './pages'
+
+const darkRoutes = ['/']
 
 export default function App() {
+  const location = useLocation()
   const [menuOpen, setMenuOpen] = useState(false)
-
-  function scrollToForm() {
-    document.getElementById('booking-form')?.scrollIntoView({ behavior: 'smooth' })
-  }
+  const [quizOpen, setQuizOpen] = useState(false)
+  const isDarkPage = darkRoutes.includes(location.pathname)
 
   return (
     <>
-      <Header
+      <Navbar
+        isDark={isDarkPage}
         menuOpen={menuOpen}
-        onConsultationOpen={scrollToForm}
+        onToggle={() => setMenuOpen(o => !o)}
       />
 
-      <Hero menuOpen={menuOpen} />
+      <AnimatePresence>
+        {menuOpen && (
+          <SideMenu
+            onClose={() => setMenuOpen(false)}
+            latestPost={articles[0]}
+          />
+        )}
+      </AnimatePresence>
 
-      <RippleTrail />
+      <AnimatePresence>
+        {quizOpen && <DreamCarQuiz onClose={() => setQuizOpen(false)} />}
+      </AnimatePresence>
 
-      <StaggeredMenu
-        isOpen={menuOpen}
-        onToggle={() => setMenuOpen((v) => !v)}
-        onConsultationOpen={scrollToForm}
-      />
-
-      {/* Scrollable content layer */}
-      <div style={{ position: 'relative', zIndex: 25 }}>
-        {/* Spacer so fixed hero is visible on load */}
-        <div style={{ height: '100vh' }} />
-
-        <div style={{ backgroundColor: 'var(--bg-base)' }}>
-          {/* Trust / Why Choose Us */}
-          <BrandManifesto />
-
-          {/* Car Match Tool */}
-          <CarSpecs />
-
-          {/* Services */}
-          <Experiences />
-
-          {/* Mid-page lead banner */}
-          <PressStrip />
-
-          {/* Service Packages / Pricing */}
-          <Membership />
-
-          {/* Founder Section */}
-          <Academy />
-
-          {/* Testimonials */}
-          <Testimonials />
-
-          {/* Consultation Form */}
-          <div id="booking-form">
-            <ConciergeForm />
-          </div>
-
-          {/* FAQ */}
-          <Faq />
-
-          <Footer />
-        </div>
-      </div>
+      <button className="quiz-float" onClick={() => setQuizOpen(true)}>
+        <span className="spark">✨</span>
+        FIND YOUR CAR
+      </button>
 
       <CookieConsent />
+
+      <AnimatePresence mode="wait" onExitComplete={() => window.scrollTo(0, 0)}>
+        <Routes location={location} key={location.pathname}>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/blog" element={<BlogPage />} />
+          <Route path="/blog/:slug" element={<ArticlePage />} />
+          <Route path="/concierge" element={<ConciergePage />} />
+          <Route path="/about" element={<AboutPage />} />
+          <Route path="/contact" element={<ContactPage />} />
+        </Routes>
+      </AnimatePresence>
     </>
   )
 }

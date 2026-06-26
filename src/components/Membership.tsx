@@ -86,8 +86,9 @@ export default function Membership() {
         </div>
         <h2
           style={{
+            fontFamily: 'var(--font-display)',
             fontSize: 'clamp(40px,6vw,80px)',
-            fontWeight: 400,
+            fontWeight: 300,
             lineHeight: 0.95,
             color: '#0c0c0e',
             margin: 0,
@@ -170,10 +171,12 @@ export default function Membership() {
             <div style={{ marginBottom: 4 }}>
               <span
                 style={{
-                  fontSize: pkg.id === 'concierge' ? 24 : 40,
+                  fontFamily: 'var(--font-condensed)',
+                  fontSize: pkg.id === 'concierge' ? 28 : 52,
                   color: '#0c0c0e',
                   fontWeight: 400,
-                  letterSpacing: '-0.02em',
+                  letterSpacing: '0.05em',
+                  lineHeight: 1,
                 }}
               >
                 {pkg.price}

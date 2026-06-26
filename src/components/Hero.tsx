@@ -19,6 +19,8 @@ const textVariants = {
   },
 }
 
+const MARQUEE_TEXT = 'PRIVATE ACQUISITION · BESPOKE CONFIGURATION · FLEET MANAGEMENT · DRIVING ACADEMY · '
+
 export default function Hero({ menuOpen }: HeroProps) {
   const [scrolled, setScrolled] = useState(false)
   const [primaryHover, setPrimaryHover] = useState(false)
@@ -113,7 +115,7 @@ export default function Hero({ menuOpen }: HeroProps) {
             </span>
           </motion.div>
 
-          {/* Headline */}
+          {/* Headline — Cormorant Garamond */}
           {[
             { text: 'BUY THE RIGHT', italic: false },
             { text: 'CAR.', italic: true },
@@ -124,8 +126,9 @@ export default function Hero({ menuOpen }: HeroProps) {
               <motion.div
                 variants={textVariants}
                 style={{
+                  fontFamily: 'var(--font-display)',
                   fontSize: 'clamp(40px, 8.5vw, 118px)',
-                  fontWeight: 400,
+                  fontWeight: line.italic ? 300 : 600,
                   lineHeight: 0.91,
                   letterSpacing: '-0.01em',
                   textTransform: 'uppercase',
@@ -209,6 +212,23 @@ export default function Hero({ menuOpen }: HeroProps) {
             </button>
           </motion.div>
         </motion.div>
+
+        {/* Marquee strip — below hero content, near bottom */}
+        <div
+          style={{
+            position: 'absolute',
+            bottom: 96,
+            left: 0,
+            right: 0,
+            overflow: 'hidden',
+            pointerEvents: 'none',
+          }}
+        >
+          <div className="marquee-track">
+            <span className="marquee-item on-dark">{MARQUEE_TEXT}</span>
+            <span className="marquee-item on-dark">{MARQUEE_TEXT}</span>
+          </div>
+        </div>
       </div>
 
       {/* Scroll indicator */}

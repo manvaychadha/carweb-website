@@ -58,8 +58,9 @@ export default function Academy() {
           </div>
           <h2
             style={{
+              fontFamily: 'var(--font-display)',
               fontSize: 'clamp(32px,4vw,60px)',
-              fontWeight: 400,
+              fontWeight: 300,
               lineHeight: 1.0,
               color: 'white',
               maxWidth: 520,
@@ -153,8 +154,9 @@ export default function Academy() {
 
           <h3
             style={{
+              fontFamily: 'var(--font-display)',
               fontSize: 'clamp(22px,2.5vw,32px)',
-              fontWeight: 400,
+              fontWeight: 300,
               lineHeight: 1.1,
               color: 'white',
               margin: '0 0 24px 0',

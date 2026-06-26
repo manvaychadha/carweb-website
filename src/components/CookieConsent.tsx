@@ -8,47 +8,37 @@ export default function CookieConsent() {
     <AnimatePresence>
       {visible && (
         <motion.div
-          className="glass-mid"
-          initial={{ opacity: 0, y: 20 }}
+          className="card"
+          initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: 10 }}
-          transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+          transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1], delay: 1.5 }}
           style={{
             position: 'fixed',
             bottom: 24,
-            left: 24,
-            zIndex: 999,
-            borderRadius: 4,
+            right: 24,
+            zIndex: 998,
             padding: '20px 24px',
-            maxWidth: 320,
+            maxWidth: 300,
+            boxShadow: '0 8px 32px rgba(0,0,0,0.12)',
           }}
         >
           <p
             style={{
-              fontSize: 9,
-              letterSpacing: '0.2em',
-              color: 'rgba(255,255,255,0.7)',
-              margin: '0 0 16px 0',
-              lineHeight: 1.7,
+              fontFamily: 'var(--font-body)',
+              fontSize: 12,
+              color: 'var(--ink-muted)',
+              margin: '0 0 14px 0',
+              lineHeight: 1.65,
             }}
           >
-            THIS SITE USES COOKIES TO IMPROVE YOUR EXPERIENCE.
+            We use cookies to improve your experience on carweb.in.
           </p>
           <div style={{ display: 'flex', gap: 8 }}>
             <button
+              className="btn-gold"
               onClick={() => setVisible(false)}
-              style={{
-                background: 'var(--accent)',
-                color: 'white',
-                fontSize: 8,
-                padding: '8px 16px',
-                border: 'none',
-                borderRadius: 2,
-                cursor: 'pointer',
-                fontFamily: 'inherit',
-                letterSpacing: '0.2em',
-                textTransform: 'uppercase',
-              }}
+              style={{ fontSize: 9, padding: '8px 18px' }}
             >
               ACCEPT
             </button>
@@ -56,16 +46,19 @@ export default function CookieConsent() {
               onClick={() => setVisible(false)}
               style={{
                 background: 'transparent',
-                border: '1px solid rgba(255,255,255,0.2)',
-                color: 'rgba(255,255,255,0.6)',
-                fontSize: 8,
-                padding: '8px 16px',
-                borderRadius: 2,
+                border: '1.5px solid var(--cream-border)',
+                borderRadius: 4,
+                color: 'var(--ink-muted)',
+                fontSize: 9,
+                padding: '8px 18px',
                 cursor: 'pointer',
-                fontFamily: 'inherit',
-                letterSpacing: '0.2em',
+                fontFamily: 'var(--font-sans)',
+                letterSpacing: '0.12em',
                 textTransform: 'uppercase',
+                transition: 'border-color 0.2s',
               }}
+              onMouseEnter={e => (e.currentTarget.style.borderColor = 'var(--ink)')}
+              onMouseLeave={e => (e.currentTarget.style.borderColor = 'var(--cream-border)')}
             >
               DECLINE
             </button>
